@@ -11,10 +11,10 @@ describe MovingAverage do
   end
 
   it "exponential moving average should raise NotEnoughDataError for invalid arguments" do
-    expect { [1, 2, 3].exponential_moving_average(-1, 3) }.to raise_exception(MovingAverageErrors::InvalidIndexError, "Given idx is outside the Array.")
-    expect { [1, 2, 3].exponential_moving_average(3, 3) }.to raise_exception(MovingAverageErrors::InvalidIndexError, "Given idx is outside the Array.")
-    expect { [1, 2, 3].exponential_moving_average(1, -1) }.to raise_exception(MovingAverageErrors::InvalidTailError, "Given tail is <= 0.")
-    expect { [1, 2, 3].exponential_moving_average(1, 3) }.to raise_exception(MovingAverageErrors::NotEnoughDataError, "Given tail is too large for idx.")
+    expect { [1, 2, 3].exponential_moving_average(-1, 3) }.to raise_exception(MovingAverage::Errors::InvalidIndexError, "Given idx is outside the Array.")
+    expect { [1, 2, 3].exponential_moving_average(3, 3) }.to raise_exception(MovingAverage::Errors::InvalidIndexError, "Given idx is outside the Array.")
+    expect { [1, 2, 3].exponential_moving_average(1, -1) }.to raise_exception(MovingAverage::Errors::InvalidTailError, "Given tail is <= 0.")
+    expect { [1, 2, 3].exponential_moving_average(1, 3) }.to raise_exception(MovingAverage::Errors::NotEnoughDataError, "Given tail is too large for idx.")
   end
 
   it "simple moving average should work" do
@@ -23,10 +23,10 @@ describe MovingAverage do
   end
 
   it "simple moving average should raise proper errors for invalid arguments" do
-    expect { [1, 2, 3].simple_moving_average(-1, 3) }.to raise_exception(MovingAverageErrors::InvalidIndexError, "Given idx is outside the Array.")
-    expect { [1, 2, 3].simple_moving_average(3, 3) }.to raise_exception(MovingAverageErrors::InvalidIndexError, "Given idx is outside the Array.")
-    expect { [1, 2, 3].simple_moving_average(1, -1) }.to raise_exception(MovingAverageErrors::InvalidTailError, "Given tail is <= 0.")
-    expect { [1, 2, 3].simple_moving_average(1, 3) }.to raise_exception(MovingAverageErrors::NotEnoughDataError, "Given tail is too large for idx.")
+    expect { [1, 2, 3].simple_moving_average(-1, 3) }.to raise_exception(MovingAverage::Errors::InvalidIndexError, "Given idx is outside the Array.")
+    expect { [1, 2, 3].simple_moving_average(3, 3) }.to raise_exception(MovingAverage::Errors::InvalidIndexError, "Given idx is outside the Array.")
+    expect { [1, 2, 3].simple_moving_average(1, -1) }.to raise_exception(MovingAverage::Errors::InvalidTailError, "Given tail is <= 0.")
+    expect { [1, 2, 3].simple_moving_average(1, 3) }.to raise_exception(MovingAverage::Errors::NotEnoughDataError, "Given tail is too large for idx.")
   end
 
   it "weighted moving average should work" do
@@ -38,10 +38,10 @@ describe MovingAverage do
   end
 
   it "weighted moving average should raise proper errors for invalid arguments" do
-    expect { [1, 2, 3].weighted_moving_average(-1, 3) }.to raise_exception(MovingAverageErrors::InvalidIndexError, "Given idx is outside the Array.")
-    expect { [1, 2, 3].weighted_moving_average(3, 3) }.to raise_exception(MovingAverageErrors::InvalidIndexError, "Given idx is outside the Array.")
-    expect { [1, 2, 3].weighted_moving_average(1, -1) }.to raise_exception(MovingAverageErrors::InvalidTailError, "Given tail is <= 0.")
-    expect { [1, 2, 3].weighted_moving_average(1, 3) }.to raise_exception(MovingAverageErrors::NotEnoughDataError, "Given tail is too large for idx.")
+    expect { [1, 2, 3].weighted_moving_average(-1, 3) }.to raise_exception(MovingAverage::Errors::InvalidIndexError, "Given idx is outside the Array.")
+    expect { [1, 2, 3].weighted_moving_average(3, 3) }.to raise_exception(MovingAverage::Errors::InvalidIndexError, "Given idx is outside the Array.")
+    expect { [1, 2, 3].weighted_moving_average(1, -1) }.to raise_exception(MovingAverage::Errors::InvalidTailError, "Given tail is <= 0.")
+    expect { [1, 2, 3].weighted_moving_average(1, 3) }.to raise_exception(MovingAverage::Errors::NotEnoughDataError, "Given tail is too large for idx.")
   end
 
 end

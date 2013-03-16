@@ -2,13 +2,13 @@ class Array
 
   def valid_for_ma(idx, tail)
     unless idx >= 0 && idx < self.size
-      raise MovingAverageErrors::InvalidIndexError
+      raise MovingAverage::Errors::InvalidIndexError
     end
     unless tail > 0
-      raise MovingAverageErrors::InvalidTailError
+      raise MovingAverage::Errors::InvalidTailError
     end
     unless idx - tail >= -1
-      raise MovingAverageErrors::NotEnoughDataError
+      raise MovingAverage::Errors::NotEnoughDataError
     end
     true
   end; private :valid_for_ma
