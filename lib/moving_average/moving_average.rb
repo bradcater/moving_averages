@@ -50,7 +50,7 @@ class Array
   end
   alias_method :wma, :weighted_moving_average
   
-  unless respond_to?(:sum)
+  unless method_defined?(:sum)
     def sum
       inject(0){|s, n| s += n}
     end
