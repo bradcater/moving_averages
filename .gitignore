@@ -1,5 +1,7 @@
 *.gem
 *.rbc
+*.swo
+*.swp
 .bundle
 .config
 .yardoc
