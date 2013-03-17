@@ -1,6 +1,6 @@
 module MovingAverage
 
-  module Errors
+  module Errors #:nodoc:
 
     class InvalidIndexError < IndexError
       def message
