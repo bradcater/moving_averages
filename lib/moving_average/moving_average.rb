@@ -1,5 +1,15 @@
 class Array
 
+  def idx_and_tail_or_defaults(idx, tail)
+    if tail.nil?
+      tail = self.size
+      if idx.nil?
+        idx = self.size - 1
+      end
+    end
+    [idx, tail]
+  end; private :idx_and_tail_or_defaults
+
   def valid_for_ma(idx, tail)
     unless idx >= 0 && idx < self.size
       raise MovingAverage::Errors::InvalidIndexError
@@ -13,7 +23,8 @@ class Array
     true
   end; private :valid_for_ma
 
-  def exponential_moving_average(idx, tail)
+  def exponential_moving_average(idx=nil, tail=nil)
+    idx, tail = idx_and_tail_or_defaults(idx, tail)
     valid_for_ma(idx, tail)
     # Taken from
     #   http://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average
@@ -27,13 +38,15 @@ class Array
   end
   alias_method :ema, :exponential_moving_average
 
-  def simple_moving_average(idx, tail)
+  def simple_moving_average(idx=nil, tail=nil)
+    idx, tail = idx_and_tail_or_defaults(idx, tail)
     valid_for_ma(idx, tail)
     self[idx-tail+1..idx].sum.to_f / tail
   end
   alias_method :sma, :simple_moving_average
 
-  def weighted_moving_average(idx, tail)
+  def weighted_moving_average(idx=nil, tail=nil)
+    idx, tail = idx_and_tail_or_defaults(idx, tail)
     valid_for_ma(idx, tail)
     # Taken from
     #   http://en.wikipedia.org/wiki/Moving_average#Weighted_moving_average
