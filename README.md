@@ -36,8 +36,8 @@ or the 4-element slice [1, 2, 3, 4] by using
 
     a.sma(3, 4) => 2.5
 
-An exponential moving average (EMA) and a weighted moving average (WMA) may be
-computed in the same way.
+An exponential moving average (EMA), a smoothed moving average (SMMA), and a
+weighted moving average (WMA) may be computed in the same way.
 
 ## Contributing
 
