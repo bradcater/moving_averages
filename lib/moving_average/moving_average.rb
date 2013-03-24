@@ -72,7 +72,7 @@ class Array
   # Formally, given that the first value for the SMMA is the SMA, subsequent
   # values can be computed as
   #
-  #     (sma – smma_i-1 + a[i])
+  #     (sma - smma_i-1 + a[i])
   #     -----------------------
   #               n
   #
