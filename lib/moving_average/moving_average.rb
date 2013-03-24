@@ -67,6 +67,53 @@ class Array
   end
   alias_method :sma, :simple_moving_average
 
+  # Compute the smoothed moving average of the values of an Array.
+  #
+  # Formally, given that the first value for the SMMA is the SMA, subsequent
+  # values can be computed as
+  #
+  #     (sma – smma_i-1 + a[i])
+  #     -----------------------
+  #               n
+  #
+  # where
+  #
+  #     smma_i-1
+  #
+  # is the smoothed moving average of the previous index.
+  #
+  # Formula taken from
+  # https://mahifx.com/indicators/smoothed-moving-average-smma
+  #
+  # ==== Parameters
+  #
+  # * +idx+ - Optional, the index of the last datum to consider.
+  # * +tail+ - Optional, the number of data to consider.
+  def smoothed_moving_average(idx=nil, tail=nil)
+    # Set these manually here since we need the leading SMA.
+    if tail.nil?
+      idx = self.size - 1 if idx.nil?
+      tail = idx / 2
+      tail += 1 if idx.odd?
+    end
+    idx, tail = idx_and_tail_or_defaults(idx, tail)
+    valid_for_ma(idx, tail)
+    valid_for_ma(idx - tail, tail)
+    # -----idx_0-----idx-----
+    puts "smma1 considers #{self[idx - 2 * tail + 1..idx - tail]}; sma => #{self[idx - 2 * tail + 1..idx - tail].sma}"
+    smma1 = self[idx - 2 * tail + 1..idx - tail].sma
+    puts
+    (idx - tail + 1..idx).to_a.each do |tidx|
+      puts "prevsum considers #{self[tidx - tail + 1..tidx]}"
+      prevsum = self[tidx - tail + 1..tidx].sum
+      puts "smma1 reset using #{self[idx - (idx - tidx)]}"
+      smma1 = (prevsum - smma1 + self[idx - (idx - tidx)]) / tail
+      puts "new smma1: #{smma1}"
+    end
+    smma1
+  end
+  alias_method :smma, :smoothed_moving_average
+
   # Compute the weighted moving average of the values of an Array.
   #
   # Formally, the WMA can be computed as n / d, where
