@@ -99,16 +99,10 @@ class Array
     idx, tail = idx_and_tail_or_defaults(idx, tail)
     valid_for_ma(idx, tail)
     valid_for_ma(idx - tail, tail)
-    # -----idx_0-----idx-----
-    puts "smma1 considers #{self[idx - 2 * tail + 1..idx - tail]}; sma => #{self[idx - 2 * tail + 1..idx - tail].sma}"
     smma1 = self[idx - 2 * tail + 1..idx - tail].sma
-    puts
     (idx - tail + 1..idx).to_a.each do |tidx|
-      puts "prevsum considers #{self[tidx - tail + 1..tidx]}"
       prevsum = self[tidx - tail + 1..tidx].sum
-      puts "smma1 reset using #{self[idx - (idx - tidx)]}"
       smma1 = (prevsum - smma1 + self[idx - (idx - tidx)]) / tail
-      puts "new smma1: #{smma1}"
     end
     smma1
   end
