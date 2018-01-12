@@ -10,22 +10,22 @@ describe MovingAverage do
     EMA = 22.247
 
     it "should work for single-element Arrays" do
-      [EMA_DATA[0]].exponential_moving_average.round(3).should eql(EMA_DATA[0])
-      [EMA_DATA[0]].ema.round(3).should eql(EMA_DATA[0])
+      expect([EMA_DATA[0]].exponential_moving_average.round(3)).to eql(EMA_DATA[0])
+      expect([EMA_DATA[0]].ema.round(3)).to eql(EMA_DATA[0])
     end
 
     it "should work for missing arguments" do
-      EMA_DATA.exponential_moving_average.round(3).should eql(EMA)
-      EMA_DATA.ema.round(3).should eql(EMA)
-      EMA_DATA.exponential_moving_average(9).round(3).should eql(EMA)
-      EMA_DATA.ema(9).round(3).should eql(EMA)
+      expect(EMA_DATA.exponential_moving_average.round(3)).to eql(EMA)
+      expect(EMA_DATA.ema.round(3)).to eql(EMA)
+      expect(EMA_DATA.exponential_moving_average(9).round(3)).to eql(EMA)
+      expect(EMA_DATA.ema(9).round(3)).to eql(EMA)
     end
 
     it "should work for valid arguments" do
       # Example taken from
       #   http://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:moving_averages
-      EMA_DATA.exponential_moving_average(9, 10).round(3).should eql(EMA)
-      EMA_DATA.ema(9, 10).round(3).should eql(EMA)
+      expect(EMA_DATA.exponential_moving_average(9, 10).round(3)).to eql(EMA)
+      expect(EMA_DATA.ema(9, 10).round(3)).to eql(EMA)
     end
 
     it "should raise proper errors for invalid arguments" do
@@ -40,20 +40,20 @@ describe MovingAverage do
   describe "simple moving average" do
 
     it "should work for single-element Arrays" do
-      [1].simple_moving_average.should ==(1)
-      [1].sma.should ==(1)
+      expect([1].simple_moving_average).to eq(1)
+      expect([1].sma).to eq(1)
     end
 
     it "should work for missing arguments" do
-      (1..5).to_a.simple_moving_average.should ==(3)
-      (1..5).to_a.sma.should ==(3)
-      (1..5).to_a.simple_moving_average(4).should ==(3)
-      (1..5).to_a.sma(4).should ==(3)
+      expect((1..5).to_a.simple_moving_average).to eq(3)
+      expect((1..5).to_a.sma).to eq(3)
+      expect((1..5).to_a.simple_moving_average(4)).to eq(3)
+      expect((1..5).to_a.sma(4)).to eq(3)
     end
 
     it "should work for valid arguments" do
-      (1..5).to_a.simple_moving_average(4, 5).should ==(3)
-      (1..5).to_a.sma(4, 5).should ==(3)
+      expect((1..5).to_a.simple_moving_average(4, 5)).to eq(3)
+      expect((1..5).to_a.sma(4, 5)).to eq(3)
     end
 
     it "should raise proper errors for invalid arguments" do
@@ -76,15 +76,15 @@ describe MovingAverage do
     end
 
     it "should work for missing arguments" do
-      SMMA_DATA.smoothed_moving_average.round(1).should ==(SMMA)
-      SMMA_DATA.smma.round(1).should ==(SMMA)
-      SMMA_DATA.smoothed_moving_average(9).round(1).should ==(SMMA)
-      SMMA_DATA.smma(9).round(1).should ==(SMMA)
+      expect(SMMA_DATA.smoothed_moving_average.round(1)).to eq(SMMA)
+      expect(SMMA_DATA.smma.round(1)).to eq(SMMA)
+      expect(SMMA_DATA.smoothed_moving_average(9).round(1)).to eq(SMMA)
+      expect(SMMA_DATA.smma(9).round(1)).to eq(SMMA)
     end
 
     it "should work for valid arguments" do
-      SMMA_DATA.smoothed_moving_average(9, 5).round(1).should ==(SMMA)
-      SMMA_DATA.smma(9, 5).round(1).should ==(SMMA)
+      expect(SMMA_DATA.smoothed_moving_average(9, 5).round(1)).to eq(SMMA)
+      expect(SMMA_DATA.smma(9, 5).round(1)).to eq(SMMA)
     end
 
     it "should raise proper errors for invalid arguments" do
@@ -104,20 +104,20 @@ describe MovingAverage do
     WMA = 1.29025
 
     it "should work for single-element Arrays" do
-      [WMA_DATA[0]].weighted_moving_average.should ==(WMA_DATA[0])
-      [WMA_DATA[0]].wma.should ==(WMA_DATA[0])
+      expect([WMA_DATA[0]].weighted_moving_average).to eq(WMA_DATA[0])
+      expect([WMA_DATA[0]].wma).to eq(WMA_DATA[0])
     end
 
     it "should work for missing arguments" do
-      WMA_DATA.weighted_moving_average.should eql(WMA)
-      WMA_DATA.wma.should eql(WMA)
-      WMA_DATA.weighted_moving_average(3).should eql(WMA)
-      WMA_DATA.wma(3).should eql(WMA)
+      expect(WMA_DATA.weighted_moving_average).to eql(WMA)
+      expect(WMA_DATA.wma).to eql(WMA)
+      expect(WMA_DATA.weighted_moving_average(3)).to eql(WMA)
+      expect(WMA_DATA.wma(3)).to eql(WMA)
     end
 
     it "should work for valid arguments" do
-      WMA_DATA.weighted_moving_average(3, 4).should eql(WMA)
-      WMA_DATA.wma(3, 4).should eql(WMA)
+      expect(WMA_DATA.weighted_moving_average(3, 4)).to eql(WMA)
+      expect(WMA_DATA.wma(3, 4)).to eql(WMA)
     end
 
     it "should raise proper errors for invalid arguments" do
