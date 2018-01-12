@@ -9,6 +9,11 @@ describe MovingAverage do
     EMA_DATA = [22.27, 22.19, 22.08, 22.17, 22.18, 22.13, 22.23, 22.43, 22.24, 22.29].freeze
     EMA = 22.247
 
+    it "should work for single-element Arrays" do
+      [EMA_DATA[0]].exponential_moving_average.round(3).should eql(EMA_DATA[0])
+      [EMA_DATA[0]].ema.round(3).should eql(EMA_DATA[0])
+    end
+
     it "should work for missing arguments" do
       EMA_DATA.exponential_moving_average.round(3).should eql(EMA)
       EMA_DATA.ema.round(3).should eql(EMA)
@@ -33,6 +38,11 @@ describe MovingAverage do
   end
 
   describe "simple moving average" do
+
+    it "should work for single-element Arrays" do
+      [1].simple_moving_average.should ==(1)
+      [1].sma.should ==(1)
+    end
 
     it "should work for missing arguments" do
       (1..5).to_a.simple_moving_average.should ==(3)
@@ -59,6 +69,11 @@ describe MovingAverage do
 
     SMMA_DATA = (1..10).to_a.freeze
     SMMA = 8.5
+
+    it "should raise proper errors for single-element Arrays" do
+      expect { [SMMA_DATA[0]].smoothed_moving_average }.to raise_exception(MovingAverage::Errors::InvalidTailError, "Given tail is <= 0.")
+      expect { [SMMA_DATA[0]].smma }.to raise_exception(MovingAverage::Errors::InvalidTailError, "Given tail is <= 0.")
+    end
 
     it "should work for missing arguments" do
       SMMA_DATA.smoothed_moving_average.round(1).should ==(SMMA)
@@ -87,6 +102,11 @@ describe MovingAverage do
     #   http://daytrading.about.com/od/indicators/a/MovingAverages.htm
     WMA_DATA = [1.2900, 1.2900, 1.2903, 1.2904].freeze
     WMA = 1.29025
+
+    it "should work for single-element Arrays" do
+      [WMA_DATA[0]].weighted_moving_average.should ==(WMA_DATA[0])
+      [WMA_DATA[0]].wma.should ==(WMA_DATA[0])
+    end
 
     it "should work for missing arguments" do
       WMA_DATA.weighted_moving_average.should eql(WMA)
