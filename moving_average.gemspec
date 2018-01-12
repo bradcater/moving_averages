@@ -15,6 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = MovingAverage::VERSION
 
-  gem.add_development_dependency "rspec", "~> 2.13"
+  gem.add_development_dependency "rspec", "~> 3.7.0"
 
 end
