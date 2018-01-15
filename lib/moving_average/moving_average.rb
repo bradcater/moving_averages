@@ -45,6 +45,9 @@ class Array
   # * +idx+ - Optional, the index of the last datum to consider.
   # * +tail+ - Optional, the number of data to consider.
   def exponential_moving_average(idx=nil, tail=nil)
+    if self.empty?
+      raise MovingAverage::Errors::EmptyArrayError
+    end
     idx, tail = idx_and_tail_or_defaults(idx, tail)
     valid_for_ma(idx, tail)
     alpha = 2.0 / (tail + 1)
@@ -61,6 +64,9 @@ class Array
   # * +idx+ - Optional, the index of the last datum to consider.
   # * +tail+ - Optional, the number of data to consider.
   def simple_moving_average(idx=nil, tail=nil)
+    if self.empty?
+      raise MovingAverage::Errors::EmptyArrayError
+    end
     idx, tail = idx_and_tail_or_defaults(idx, tail)
     valid_for_ma(idx, tail)
     self[idx-tail+1..idx].sum.to_f / tail
@@ -90,8 +96,14 @@ class Array
   # * +idx+ - Optional, the index of the last datum to consider.
   # * +tail+ - Optional, the number of data to consider.
   def smoothed_moving_average(idx=nil, tail=nil)
-    # Set these manually here since we need the leading SMA.
-    if tail.nil?
+    if self.empty?
+      raise MovingAverage::Errors::EmptyArrayError
+    elsif self.size == 1
+      # If there's only 1 element, then there's no smoothing to do, so return
+      # the first element.
+      return self[0]
+    elsif tail.nil?
+      # Set these manually here since we need the leading SMA.
       idx = self.size - 1 if idx.nil?
       tail = idx / 2
       tail += 1 if idx.odd?
@@ -130,6 +142,9 @@ class Array
   # * +idx+ - Optional, the index of the last datum to consider.
   # * +tail+ - Optional, the number of data to consider.
   def weighted_moving_average(idx=nil, tail=nil)
+    if self.empty?
+      raise MovingAverage::Errors::EmptyArrayError
+    end
     idx, tail = idx_and_tail_or_defaults(idx, tail)
     valid_for_ma(idx, tail)
     n = (0..tail-1).to_a.map{|tidx| (tail - tidx) * self[idx - tidx]}.sum
@@ -137,7 +152,7 @@ class Array
     n / d
   end
   alias_method :wma, :weighted_moving_average
-  
+
   unless method_defined?(:sum)
     # Compute the sum of the values of an Array.
     def sum
